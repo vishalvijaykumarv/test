@@ -1,40 +1,27 @@
 pipeline {
     agent any
     stages {
-        stage('pre -build') {
-            steps {
-                sh 'echo Pre-build'
-            }
-        }
         stage('build') {
             steps {
-                sh 'echo Build in progress.'
-            }
-        }
-        stage('Unit tests') {
-            steps {
-                sh 'echo Running unit tests'
+                sh 'docker-compose build --no-cache'
             }
         }
         stage('deploy') {
             steps {
-                sh 'echo Deploying build'
-            }
-        }
-        stage('Regression tests') {
-            steps {
-                sh 'echo Running E2E tests'
+                sh 'docker-compose up -d --force-recreate'
             }
         }
         stage('Release to prod') {
             steps {
+                sh 'docker ps'
                 sh 'echo Releasing to prod'
             }
         }
     }
- post {
+    post {
         always {
             echo 'Cleanup after everything!'
+            sh 'docker system prune --all -y'
         }
     }
 }
