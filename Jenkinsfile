@@ -1,5 +1,9 @@
 pipeline {
     agent any
+     triggers {
+        githubPush()
+        pollSCM('* * * * *')
+    }
     stages {
         stage('check the files') {
             steps {
