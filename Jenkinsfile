@@ -1,27 +1,26 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('check the files') {
             steps {
-                sh 'docker-compose build --no-cache'
+                sh 'pwd'
+                sh 'ls -la'
             }
         }
         stage('deploy') {
             steps {
-                sh 'docker-compose up -d'
+                sh 'docker-compose up -d --build'
             }
         }
-        stage('Release to prod') {
+        stage('clear cache') {
             steps {
-                sh 'docker ps'
-                sh 'echo Releasing to prod'
+                sh 'docker builder prune -af'
             }
         }
     }
     post {
         always {
             echo 'Cleanup after everything!'
-            sh 'docker system prune --all -y'
         }
     }
 }
