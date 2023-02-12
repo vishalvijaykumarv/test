@@ -8,7 +8,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh 'docker-compose up -d --force-recreate'
+                sh 'docker-compose up -d'
             }
         }
         stage('Release to prod') {
