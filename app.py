@@ -11,8 +11,8 @@ def add():
         return 'The sum of {} and {} is {}'.format(num1, num2, result)
     return '''
         <form method="post">
-            Number 1: <input type="text" name="num1"><br>
-            Number 2: <input type="text" name="num2"><br>
+            Number-1: <input type="text" name="num1"><br>
+            Number-2: <input type="text" name="num2"><br>
             <input type="submit" value="Submit"><br>
         </form>
     '''
